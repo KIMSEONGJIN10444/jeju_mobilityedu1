@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{username}}의 TODO 리스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .todo-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .todo-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tood-form input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+        }
+        .todo-form button {
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-header">
+        <h2>{{ username }}의 TODO 리스트</h2>
+    </div>
+
+    <form class="todo-form" action="{{ url_for('add_todo') }}" method="POST">
+        <input type="text" name="todo" placeholder="새로운 할 일을 입력하세요" required>
+        <button type="submit">추가</button>
+    </form>
+
+    <ul class="todo-list">
+        {% for todo in todos %}
+        <li class="todo-item">
+            {{ todo }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

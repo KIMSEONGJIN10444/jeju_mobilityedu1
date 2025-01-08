@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 완료</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        /* 채팅 메시지 영역 스타일 */
+        #messages { 
+            height: 400px;
+            width: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>🌊{{ username }}님 로그인됐습니다. 지금 바로 채팅에 참여하세요!🌊</h2>
+        <div id="messages">
+            {% for msg in messages %}
+                <p><strong>{{ msg.user }}:</strong> {{ msg.message }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <input type="text" id="message" placeholder="메시지 입력" 
+           onkeypress="if(event.keyCode==13) sendMessage()">
+    <button onclick="sendMessage()">전송</button>
+
+    <script>
+        var socket = io();
+
+        socket.on('message', function(data) {
+            var messages = document.getElementById('messages');
+            messages.innerHTML += '<p><strong>' + data.user + '🌊:</strong>' + data.message + '<p>';
+            messages.scrollTop = messages.scrollHeight;
+        });
+
+        function sendMessage() {
+            var message = document.getElementById('message');
+            if(message.value) {
+                socket.emit('message', {message: message.value});
+                message.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

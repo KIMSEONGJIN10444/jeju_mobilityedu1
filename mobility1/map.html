@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지도맵</title>
+    <link rel="stylesheet" href="./map.css">
+</head>
+<body>
+    <div class="button-container">
+        <button onclick="getCurrentLocation()">현재 위치 찾기</button>
+        <div id="location-info"></div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=키값&callback=initMap" async defer></script>
+</body>
+</html>
